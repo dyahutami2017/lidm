@@ -1,18 +1,10 @@
+/* html,body{
+    width: 100%;
+} */
 .menu{
     background-color: #252623;
-    padding:20px;
+    padding:10px;
 }
-
-
-.header{
-    background-image: url(./images/header.jpg);
-    background-color: #252623;
-    width: 100%; 
-    padding:300px;
-    background-size: contain;
-    background-repeat:no-repeat;
-}
-
 
 h3{    
     margin-top: 100px;
@@ -24,13 +16,10 @@ button{
     margin-left:-70px;
     float:right;
 }
-/* .carousel-inner {
-    width:100%;
-    height:500px;
-} */
+
 .carousel-caption{
     position: absolute;
-    margin-bottom: 200px;
+    margin-bottom: 150px;
 }
 h1{
     font-size: 70px;
@@ -66,4 +55,35 @@ strong{
 .sub {
  height: 300px;
  justify-content: center;   
+}
+
+#boxform{
+    color: #5a5a5a;
+    background-color: #fff;
+    opacity: 1;
+    padding: 20px;
+    text-align: left;
+    width: 300px;
+}
+
+#loginbox {
+    opacity: .94;
+    margin-bottom: 3rem;
+}
+
+.no-padding {
+ padding-right: 0 !important;
+ padding-left: 0 !important;
+ 
+}
+
+.ads{
+    margin-left: 200px;
+    margin-top: 100px;
+}
+
+
+.ads1{
+    margin-left: 50px;
+    margin-top: 150px;
 }
