@@ -1,9 +1,13 @@
 /* html,body{
     width: 100%;
 } */
+html{
+    padding-right: 0 !important ;
+    margin: 0;
+}
 .menu{
     background-color: #252623;
-    padding:10px;
+   
 }
 
 h3{    
