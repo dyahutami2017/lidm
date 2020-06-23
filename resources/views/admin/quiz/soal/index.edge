@@ -1,0 +1,74 @@
+@layout('admin.template')
+
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Quiz</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <th>Nama Quiz</th>
+                            <td>:</td>
+                            <td>{{ quiz.nama }}</td>
+                        </tr>
+                        <tr>
+                            <th>Banner Quiz</th>
+                            <td>:</td>
+                            <td><img style="width: 200px" src="{{ route('asset', {file: quiz.banner}) }}" alt="" srcset=""></td>
+                        </tr>
+                        <tr>
+                            <th>Deskripsi Quiz</th>
+                            <td>:</td>
+                            <td>{{ quiz.deskripsi }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Soal Quiz</h3>
+                    <div class="right">
+                        <a href="{{ route('admin.quiz.soal.add', {quiz: quiz.id}) }}" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Soal</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <th>Id</th>
+                            <th>Judul</th>
+                            <th>Aksi</th>
+                        </thead>
+                        <tbody>
+                            @each(item in soal)
+                                <tr>
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.judul }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.quiz.soal.detail', { quiz: quiz.id, soal: item.id }) }}" class="btn btn-info"><i class="fa fa-eye"></i> Detail</a>
+                                        <a href="{{ route('admin.quiz.soal.edit', { quiz: quiz.id, soal: item.id }) }}" class="btn btn-warning"><i class="fa fa-pencil"></i> Ubah</a>
+                                        <form style="display: inline-block" action="{{ route('admin.quiz.soal.drop', {quiz: quiz.id, soal: item.id}) }}" method="post">
+                                            {{csrfField()}}
+                                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @else
+                                <tr>
+                                    <td colspan="3"><p class="text-center">Belum ada soal</p></td>
+                                </tr>  
+                            @endeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+

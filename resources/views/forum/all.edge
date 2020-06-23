@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Forum</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="/images/logo Dyselxia.png" height="40" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+
+        </div>
+    </nav>
+
+    <div class="row w-100">
+           <div class="col mt-4 ml-5"><h2>All Question</h2></div>
+        <button class="btn btn-primary mt-3 mr-2">Ask Question</button>
+        <div class='form-row align-items-center  justify-content-end  '>
+            <input style='width:500px;' class='form-control col ' type='text' name='cari' placeholder='Cari'>
+            <input style='margin-left:-3px;' class='btn btn-primary ' type='submit' value='Cari'>
+        </div>
+    </div>
+
+    <div class="row w-100">
+        <div class="col-md-9">
+            <div class="card mt-5 ml-5 ">
+                <div class="card-header bg-info">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Terpopuler</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="#">Terbaru</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2 text-center">
+                            <h4>3</h4>
+                            <p>Jawaban</p>
+                        </div>
+                        <div class="col">
+                            <a href="{{ route('forum.detail') }}">
+                                <h5 class="card-title">Thread diskusi umum untuk orang tua</h5>
+                            </a>
+                            <p class="card-text">Tempat orang tua untuk melakukan diskusi mengenai hal-hal umum mengenai Dyselxia
+                            </p>
+                        </div>
+                        <div class="col-md-2 p-0">
+                                <p>3 hari yang lalu</p>
+                                <div class="row"> 
+                                    <div class="col p-0 text-center"><img src="/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" width="50px"  alt=""></div>
+                                    <div class="col p-0 m-0 text-left"><p>Aria Dwi</p></div>
+                                </div>
+                               
+                            </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2 text-center">
+                            <h4>8</h4>
+                            <p>Jawaban</p>
+                        </div>
+                        <div class="col">
+                            <a href="{{ route('forum.detail') }}">
+                                <h5 class="card-title">Tips & Trick</h5>
+                            </a>
+                            <p class="card-text">Tempat untuk membagikan tips&trick bagi orang tua
+                            </p>
+                        </div>
+                        <div class="col-md-2 p-0">
+                                <p>2 hari yang lalu</p>
+                                <div class="row"> 
+                                    <div class="col p-0 text-center"><img src="/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" width="50px"  alt=""></div>
+                                    <div class="col p-0 m-0 text-left"><p>Aria Dwi</p></div>
+                                </div>
+                               
+                            </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2 text-center">
+                            <h4>2</h4>
+                            <p>Jawaban</p>
+                        </div>
+                        <div class="col">
+                            <a href="{{ route('forum.detail') }}">
+                                <h5 class="card-title">Keluhan MEDYS</h5>
+                            </a>
+                            <p class="card-text">
+                                Forum untuk orang tua agar dapat memberikan masukan dan komplain kepada MEDYS
+                            </p>
+                        </div>
+                        <div class="col-md-2 p-0">
+                            <p>Asked 54 secs ago</p>
+                            <div class="row"> 
+                                <div class="col p-0 text-center"><img src="/images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg" width="50px"  alt=""></div>
+                                <div class="col p-0 m-0 text-left"><p>Aria Dwi</p></div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div></div>
+
+    <nav aria-label="Halaman">
+            <ul class="pagination m-5">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+</body>
+
+</html>

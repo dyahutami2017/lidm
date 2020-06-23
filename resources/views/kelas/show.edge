@@ -1,0 +1,330 @@
+@layout('admin.template')
+
+@section('sidebar')
+    @include('dashboard.sidebar')
+@endsection
+
+@section('content')
+    <h3 class="page-title">{{ data.nama }}</h3>
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Detail Kelas</h3>
+                <div class="right">
+                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Nama Kelas</th>
+                        <td>:</td>
+                        <td>{{ data.nama }}</td>
+                    </tr>
+                    <tr>
+                        <th>Deskripsi Kelas</th>
+                        <td>:</td>
+                        <td>{{ data.deskripsi }}</td>
+                    </tr>
+                    @if(auth.user.role_id == 2)
+                        <tr>
+                            <th>Token Akses</th>
+                            <td>:</td>
+                            <td>{{ data.token_akses }} &emsp; <a href="#" data-toggle="modal" data-target="#ubah-token"><i class="fa fa-edit"></i> Ubak Token Akses</a></td>
+                        </tr>
+                    @endif
+                    <tr>
+                        <th>Guru</th>
+                        <th>:</th>
+                        <th><a href="{{ route('user.profile', { id: guru.id}) }}">{{ guru.nama }}</a></th>
+                    </tr>
+                    <tr>
+                        <th>Jumlah Siswa</th>
+                        <td>:</td>
+                        <td>{{ jumlah_siswa }} Siswa</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">   
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Materi Kelas</h3>
+                <div class="right">
+                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama Materi</th>
+                            @if(auth.user.role_id == 3)
+                                <th>Progresku</th>
+                            @endif
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @each(item in materi)
+                            <tr>
+                                <td>{{ ($loop.index + 1) }}</td>
+                                <td>{{ item.nama }}</td>
+
+                                @if(auth.user.role_id == 3)
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                                                50%
+                                            </div>
+                                        </div>
+                                    </td>
+                                @endif
+                                <td><a href="{{ route('kelas.materi.detail', {id: data.id, materi: item.id}) }}"><i class="fa fa-eye"></i> Lihat Materi</a></td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td class='text-center' colspan="3">Belum ada materi</td>
+                            </tr>
+                        @endeach
+                    </tbody>
+                </table>
+            </div>
+            @if(auth.user.role_id == 2)
+                <div class="panel-footer text-right">
+                    <button id="tambah-materi" class="btn btn-primary" data-toggle="modal" data-target="#daftar-materi"><i class="fa fa-plus"></i> Tambah Materi</button>
+                </div>
+            @endif
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Quiz Kelas</h3>
+                <div class="right">
+                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama Quiz</th>
+                            @if(auth.user.role_id == 3)
+                                <th>Skorku</th>
+                            @endif
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @each(item in quiz)
+                            <tr>
+                                <td>{{ ($loop.index + 1) }}</td>
+                                <td>{{ item.nama }}</td>
+                                @if(auth.user.role_id == 3)
+                                    <td>60/100</td>
+                                @endif
+                                <td><a href="{{ route('kelas.quiz.detail', {id: data.id, quiz: item.id}) }}"><i class="fa fa-eye"></i> Lihat Quiz</a></td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td class='text-center' colspan="3">Belum ada quiz</td>
+                            </tr>
+                        @endeach
+                    </tbody>
+                </table>
+            </div>
+            @if(auth.user.role_id == 2)
+                <div class="panel-footer text-right">
+                    <button id="tambah-materi" class="btn btn-primary"  data-toggle="modal" data-target="#daftar-quiz"><i class="fa fa-plus"></i> Tambah Quiz</button>
+                </div>
+            @endif
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Siswa Terdaftar</h3>
+                <div class="right">
+                    <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Foto Siswa</th>
+                            <th>Nama Siswa</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @each(item in siswa)
+                            <tr>
+                                <td>{{ ($loop.index + 1) }}</td>
+                            <td><img style="max-width: 80px;" src="{{ route('asset', {file: item.foto_siswa}) }}" alt="{{ item.nama_siswa }}"></td>
+                                <td>{{ item.nama_siswa }}</td>
+                                <td><a href="{{ route('kelas.siswa.profile', {id: item.id, kelas: data.id}) }}" class="btn btn-info"><i class="fa fa-eye"></i> Detail Siswa</a></td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td class='text-center' colspan="4">Belum ada siswa terdaftar</td>
+                            </tr>
+                        @endeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="daftar-materi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Tambah Materi</h4>
+            </div>
+            <div class="modal-body">
+                <form id="tambahMateriForm" action="{{ route('kelas.materi.add', {id: data.id}) }}" method="post">
+                    {{ csrfField() }}
+                    <div class="form-group">
+                        <label for="kelas">Pilih Materi</label>
+                        <select name="materi_id" id="materi" class="form-control" style="width: 100%">
+                            @each(item in allMateri)
+                                <option value="{{ item.id }}">{{ item.nama }}</option>
+                            @endeach
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                <button type="button" id="addMateri" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Materi</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="daftar-quiz" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Tambah Quiz</h4>
+            </div>
+            <div class="modal-body">
+                <form id="tambahQuizForm" action="{{ route('kelas.quiz.add', {id: data.id}) }}" method="post">
+                    {{ csrfField() }}
+                    <div class="form-group">
+                        <label for="quiz">Pilih Quiz</label>
+                        <select name="quiz_id" id="quiz" class="form-control" style="width: 100%">
+                            @each(item in allQuiz)
+                                <option value="{{ item.id }}">{{ item.nama }}</option>
+                            @endeach
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                <button type="button" id="addQuiz" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Materi</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ubah-token" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Ubah Token</h4>
+            </div>
+            <div class="modal-body">
+                <form id="ubahTokenForm" action="{{ route('kelas.token.update', {id: data.id}) }}" method="post">
+                    {{ csrfField() }}
+                    <div class="form-group">
+                        <label for="quiz">Token Baru</label>
+                        <input type="text" name="token_akses" id="token_akses" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                <button type="button" id="setToken" class="btn btn-primary"><i class="fa fa-pencil"></i> Ubah Token</button>
+            </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('css')
+    @super
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" integrity="sha256-FdatTf20PQr/rWg+cAKfl6j4/IY3oohFAJ7gVC3M34E=" crossorigin="anonymous" />
+@endsection
+
+@section('js')
+    @super
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js" integrity="sha256-d/edyIFneUo3SvmaFnf96hRcVBcyaOy96iMkPez1kaU=" crossorigin="anonymous"></script>    <script>
+        $(document).ready(function(){
+            $('#materi').select2();
+            $('#quiz').select2();
+
+
+
+        $("#tambahMateriForm").submit(function(x){
+            x.preventDefault();
+        });
+
+        $('#addMateri').click(function(x){
+            let url = $('#tambahMateriForm').attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $('#tambahMateriForm').serialize()+"&kelas_id={{ data.id }}",
+                success: function(data){
+                    if(data.status == 1){
+                        document.location.reload();
+                    }
+                }
+            });
+        });
+
+
+        $('#addQuiz').click(function(x){
+            let url = $('#tambahQuizForm').attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $('#tambahQuizForm').serialize()+"&kelas_id={{ data.id }}",
+                success: function(data){
+                    if(data.status == 1){
+                        document.location.reload();
+                    }
+                }
+            });
+        });
+
+        
+        $('#setToken').click(function(x){
+            let url = $('#ubahTokenForm').attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $('#ubahTokenForm').serialize()+"&kelas_id={{ data.id }}",
+                success: function(data){
+                    if(data.status == 1){
+                        document.location.reload();
+                    }
+                }
+            });
+        });
+        });
+    </script>
+@endsection

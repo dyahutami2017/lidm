@@ -1,0 +1,29 @@
+@layout('admin.template')
+
+@section('sidebar')
+    @include('dashboard.sidebar')
+@endsection
+
+@section('content')
+    <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ title }}</h3>
+            </div>
+            <div class="panel-body">
+                <form action="{{ route('kelas.store') }}" method="post">
+                    {{ csrfField() }}
+                    <input required type="text" name="nama" id="nama" placeholder="Nama Kelas" class="form-control" name="{{ old('nama', '') }}">
+                    {{ elIf('<span>$self</span>', getErrorFor('nama'), hasErrorFor('nama')) }}
+                    <p></p>
+                    <textarea required name="deskripsi" placeholder="Deskripsi Kelas" id="deskripsi" cols="30" rows="10" class="form-control">{{ old('deskripsi', '') }}</textarea>
+                    {{ elIf('<span>$self</span>', getErrorFor('deskripsi'), hasErrorFor('deskripsi')) }}
+                    <p></p>
+                    <p class="text-right">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Buat Kelas</button>
+                        <a href="{{route('kelas.index')}}" class="btn btn-danger"><i class="fa fa-ban"></i> Batal</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    
+@endsection

@@ -1,0 +1,10 @@
+
+@if(auth.user.role_id == 2)
+    <li><a href="{{ route('dashboard') }}" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+    <li><a href="{{ route('kelas.index') }}" class=""><i class="lnr lnr-users"></i> <span>Kelas</span></a></li>
+    <li><a href="{{ route('forum.all') }}" class=""><i class="lnr lnr-bubble"></i> <span>Forum</span></a></li>
+@else
+    <li><a href="{{ route('dashboard') }}" class=""><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+    <li><a href="{{ route('kelas.index') }}" class=""><i class="lnr lnr-users"></i> <span>Kelasku</span></a></li>
+    <li><a href="{{ route('forum.all') }}" class=""><i class="lnr lnr-bubble"></i> <span>Forum</span></a></li>
+@endif

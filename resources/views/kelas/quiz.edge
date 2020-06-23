@@ -1,0 +1,38 @@
+@layout('admin.template')
+
+@section('sidebar')
+    @include('dashboard.sidebar')
+@endsection
+
+@section('content')
+
+  {{{ konten.soal }}}
+@endsection
+
+@section('js')
+    @super
+  {{{ konten.js }}}
+  <script>
+      $("#content").change(function(x){
+        changeChapter(parseInt($(this).val()))
+      })
+
+      $("#nextChapter").click(function(x){
+        changeChapter(parseInt($("#content").val()) + 1)
+      })
+
+      $("#prevChapter").click(function(x){
+        changeChapter(parseInt($("#content").val()) - 1)
+      })
+
+      function changeChapter(chapId){
+        const url = "{{ route('kelas.quiz.belajar', {kelas: kelas.id, quiz: quiz.id, konten: "chapid"}) }}"
+        document.location.href = url.replace('chapid', chapId)
+      }
+  </script>
+@endsection
+
+@section('css')
+    @super
+  {{{ konten.css }}}
+@endsection

@@ -1,0 +1,122 @@
+@layout('admin.template')
+
+@section('sidebar')
+    @include('dashboard.sidebar')
+@endsection
+
+@section('content')
+    <h3 class="page-title">{{ auth.user.role_id == 2 ? "List Kelas" : "Kelasku" }}</h3>
+    <div style="display: flex; flex-wrap: wrap">
+        @if(auth.user.role_id == 2)
+            <a href="{{ route('kelas.create') }}" class="kelas-box">
+                <!-- PANEL NO PADDING -->
+                <div class="panel">
+                    <div class="panel-body no-padding text-center text-muted">
+                        <div class="padding-top-30 padding-bottom-30">
+                            <i class="fa fa-plus fa-5x"></i>
+                            <h3>Buat Kelas Baru</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PANEL NO PADDING -->
+            </a>
+        @elseif(auth.user.role_id == 3)
+        <a href="#" id="kelas-baru" class="kelas-box" data-toggle="modal" data-target="#daftar-kelas">
+            <!-- PANEL NO PADDING -->
+            <div class="panel">
+                <div class="panel-body no-padding text-center text-muted">
+                    <div class="padding-top-30 padding-bottom-30">
+                        <i class="fa fa-sign-in fa-5x"></i>
+                        <h3>Daftar Kelas Baru</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- END PANEL NO PADDING -->
+        </a>
+        @endif
+        @each(item in kelas)
+            <a href="{{ route('kelas.show', {id: item.id}) }}" class="kelas-box">
+                <!-- PANEL NO PADDING -->
+                <div class="panel {{ warna[($loop.index % 5)] }}">
+                    <div class="panel-body no-padding text-center">
+                        <div class="padding-top-30 padding-bottom-30">
+                            <h3>{{ item.nama }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PANEL NO PADDING -->
+            </a>
+        @endeach
+    </div>
+    
+    <div class="modal fade" id="daftar-kelas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Daftar Kelas Baru</h4>
+            </div>
+            <div class="modal-body">
+                <form id="tambahKelasForm" action="{{ route('user.kelas.daftar', {id: auth.user.id}) }}" method="post">
+                    {{ csrfField() }}
+                    <div class="form-group">
+                        <label for="kelas">Kelas</label>
+                        <select name="kelas_id" id="kelas" class="form-control" style="width: 100%">
+                            @each(item in allKelas)
+                                <option value="{{ item.id }}">{{ item.nama }}</option>
+                            @endeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="token">Akses token</label>
+                        <input style="margin-bottom: 20px" class="form-control" type="text" name="token_akses" id="akses_token" placeholder="Masukan akses token yang diberikan oleh Guru">
+                    </div>
+                    <span style="width: 100%; display: none" class="token-salah alert alert-danger">Token salah.</span>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                <button type="button" id="daftarButton" class="btn btn-primary"><i class="fa fa-sign-in"></i> Daftar Kelas</button>
+            </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('css')
+    @super
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" integrity="sha256-FdatTf20PQr/rWg+cAKfl6j4/IY3oohFAJ7gVC3M34E=" crossorigin="anonymous" />
+@endsection
+
+@section('js')
+    @super
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js" integrity="sha256-d/edyIFneUo3SvmaFnf96hRcVBcyaOy96iMkPez1kaU=" crossorigin="anonymous"></script>    <script>
+        $(document).ready(function(){
+            $('#kelas').select2();
+
+
+
+        $("#tambahKelasForm").submit(function(x){
+            x.preventDefault();
+        });
+
+        $('#daftarButton').click(function(x){
+            $('.token-salah').hide();
+            let url = $('#tambahKelasForm').attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $('#tambahKelasForm').serialize(),
+                success: function(data){
+                    if(data.status == 1){
+                        document.location.reload();
+                    }else{
+                        $('.token-salah').show();
+                    }
+                }
+            });
+        });
+        });
+    </script>
+@endsection

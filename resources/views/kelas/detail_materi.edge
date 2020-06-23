@@ -1,0 +1,100 @@
+@layout('admin.template')
+
+@section('sidebar')
+    @include('dashboard.sidebar')
+@endsection
+
+@section('content')
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel">
+                <div class="panel-body no-padding">
+                    <img style="width: 100%" src="{{ route('asset', {file: materi.banner}) }}" alt="" srcset="">
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ materi.nama }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">Daftar Isi Materi</div>
+                    <div class="right">
+                        <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ol class="list-group">
+                        @each(item in kontenMateri)
+                          <li class="list-group-item">{{ item.judul }}</li>
+                        @else
+                          <li>Belum ada konten</li>
+                        @endeach
+                    </ol>
+                </div>
+                <div class="panel-footer text-right">
+                    <a href="{{ route('kelas.materi.belajar', {kelas: kelas.id, materi: materi.id, konten: kontenMateri[0].id}) }}" class="btn btn-success">Mulai Belajar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">Progress Belajar Siswa</div>
+                    <div class="right">
+                        <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Guntara Yosan</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+                                            75%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Ananda Ikhsan</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                                            50%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Ananda Ikhsan</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                            25%
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

@@ -1,0 +1,128 @@
+@layout('admin.template')
+
+@section('sidebar')
+    @include('dashboard.sidebar')
+@endsection
+
+@section('content')
+    <h3 class="page-title">Profil Siswa</h3>
+    <div class="row">
+        <div class="col-md-4" style="text-align: center">
+            <img style="width:250px;" src="{{ route('asset', {file: siswa.foto_siswa}) }}" alt="" srcset="">
+
+        </div>
+        <div class="col-md-8">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h3>Informasi Siswa</h3>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Nama</th>
+                            <td>:</td>
+                            <td>{{ siswa.nama_siswa }}</td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Lahir</th>
+                            <td>:</td>
+                            <td>{{ siswa.tanggal_lahir_siswa }}</td>
+                        </tr>
+                        <tr>
+                            <th>Jenis Kelamin</th>
+                            <td>:</td>
+                            <td>{{ siswa.jenis_kelamin_siswa == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Orang Tua</th>
+                            <td>:</td>
+                            <td>{{ siswa.nama }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="page-title">Progress Belajar di {{ kelas.nama }}</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Grafik Nilai Quiz Siswa</h3>
+                </div>
+                <div class="panel-body">
+                        <div id="demo-bar-chart" class="ct-chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Progress Penyelesaian Materi</h3>
+                </div>
+                <div class="panel-body">
+                    <ol>
+                        <li>
+                            <p>Pengenalan Angka</p>
+                            <p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                                        100%
+                                    </div>
+                                </div>
+                            </p>
+                        </li>
+                        <li>
+                            <p>Pengenalan Huruf</p>
+                            <p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
+                                        80%
+                                    </div>
+                                </div>
+                            </p>
+                        </li>
+                        <li>
+                            <p>Penjumlahan Matematika</p>
+                            <p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                        40%
+                                    </div>
+                                </div>
+                            </p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('js')
+@super
+<script src="/assets/vendor/chartist/js/chartist.min.js"></script>
+<script>
+    $(function(){
+        let options;
+        let data = {
+			labels: ['Penjumlahan', 'Membaca', 'Menulis', 'Pengurangan'],
+			series: [
+				[80, 40, 70, 60],
+			]
+		};
+        options = {
+			height: "300px",
+			axisX: {
+				showGrid: false
+			},
+		};
+
+		new Chartist.Bar('#demo-bar-chart', data, options);
+
+    });
+</script>
+@endsection

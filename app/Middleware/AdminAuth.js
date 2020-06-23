@@ -9,14 +9,16 @@ class AdminAuth {
    * @param {Request} ctx.request
    * @param {Function} next
    */
-  async handle ({ request, response,auth }, next) {
+  async handle ({ ctx, auth, response }, next) {
     // call next to advance the request
-    try {
-      await auth.check();
-    }catch (e) {
-      response.route('user.login')
-    }
-
+      try {
+        await auth.check();
+        if(auth.user.role_id > 1){
+          return response.route('home')
+        }
+      }catch (e) {
+        return response.route('admin.login')
+      }
 
     await next()
   }

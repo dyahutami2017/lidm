@@ -1,0 +1,96 @@
+@layout('admin.template')
+
+@section('content')
+  <div class="row">
+      <div class="col-md-12">
+          <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Tambah Soal</h3>
+                </div>
+                <form action="{{ route('admin.quiz.soal.update', {quiz: quiz.id, soal: soal.id}) }}" method="post">
+                    <div class="panel-body">
+                        {{ csrfField() }}
+                        <div class="form-group">
+                            <label for="judul">Judul</label>
+                            <input type="text" name="judul" id="judul" class="form-control" value="{{ soal.judul }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="soal">Soal</label>
+                            <textarea name="soal" id="soal">{{ soal.soal || "" }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="soal">JS</label>
+                            <textarea name="js" id="js" class="form-control">{{ soal.js || "" }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="soal">CSS</label>
+                            <textarea name="css" id="css" class="form-control">{{ soal.css || "" }}</textarea>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                    </div>
+                </form>
+                
+          </div>
+      </div>
+  </div>
+@endsection
+
+@section('css')
+  @super
+  <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" href="/codemirror/theme/dracula.css">
+@endsection
+
+@section('js')
+  @super
+  <script src="/ckeditor/ckeditor.js"></script>
+  <script src="/codemirror/lib/codemirror.js"></script>
+  <script src="/codemirror/mode/javascript/javascript.js"></script>
+  <script src="/codemirror/mode/css/css.js"></script>
+  <script src="/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+  <script src="/codemirror/mode/xml/xml.js"></script>
+  <script>
+      $(document).ready(function(e){
+        CKEDITOR.config.contentsCss = [CKEDITOR.basePath + 'contents.css', '/assets/css/bootstrap.min.css'];
+        CKEDITOR.config.allowedContent = true;
+        CKEDITOR.replace( 'soal', {
+            extraPlugins: 'uploadcare',
+            toolbar: [
+            { name: 'document', items : [ 'Source','-','Save','NewPage','DocProps','Preview','Print','-','Templates' ] },
+            { name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+            { name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
+            { name: 'forms', items : [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+                'HiddenField' ] },
+            '/',
+            { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+            { name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','CreateDiv',
+                '-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl' ] },
+            { name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+            { name: 'insert', items : [ 'Uploadcare','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe' ] },
+            '/',
+            { name: 'styles', items : [ 'Styles','Format','Font','FontSize' ] },
+            { name: 'colors', items : [ 'TextColor','BGColor' ] },
+            { name: 'tools', items : [ 'Maximize', 'ShowBlocks','-','About' ] }
+            ],
+            uploadcare: {
+                publicKey: '8d92c3c89da0f134fc8f'
+            }
+
+            } );
+        
+        const jsEditor = CodeMirror.fromTextArea(document.getElementById("js"), {
+            lineNumbers: true,
+            mode: 'htmlmixed',
+            theme: 'dracula'
+        })
+        const cssEditor = CodeMirror.fromTextArea(document.getElementById("css"), {
+            lineNumbers: true,
+            mode: 'htmlmixed',
+            theme: 'dracula'
+        })
+    
+    });
+  </script>
+@endsection

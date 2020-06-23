@@ -1,0 +1,82 @@
+@layout('admin.template')
+
+@section('sidebar')
+    @include('dashboard.sidebar')
+@endsection
+
+@section('content')
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel">
+                <div class="panel-body no-padding">
+                    <img style="width: 100%" src="{{ route('asset', {file: quiz.banner}) }}" alt="" srcset="">
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ quiz.nama }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">Tentang Quiz</div>
+                    <div class="right">
+                        <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {{ quiz.deskripsi }}
+                </div>
+                <div class="panel-footer text-right">
+                    <a href="{{ route('kelas.quiz.belajar', {kelas: kelas.id, quiz: quiz.id, konten: kontenQuiz[0].id}) }}" class="btn btn-success">Mulai Belajar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">Progress Nilai Quiz Siswa</div>
+                    <div class="right">
+                        <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Guntara Yosan</td>
+                                <td>
+                                    9/10
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Ananda Ikhsan</td>
+                                <td>
+                                    8/10
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Ananda Ikhsan</td>
+                                <td>
+                                    4/10
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

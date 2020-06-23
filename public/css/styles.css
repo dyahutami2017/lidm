@@ -1,0 +1,43 @@
+
+.kelas-box{
+    width: 200px;
+    height: 190px;
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: top;
+    margin-bottom: 20px
+}
+
+.kelas-box .panel{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+.bg-red{
+    background: #EF5350;
+    color: #fff !important;
+}
+
+.bg-pink{
+    background: #F06292;
+    color: #fff !important;
+}
+
+.bg-purple{
+    background: #AB47BC;
+    color: #fff !important;
+}
+
+.bg-deep-purple{
+    background: #673AB7;
+    color: #fff !important;
+}
+
+.bg-indigo{
+    background: #3F51B5;
+    color: #fff !important;
+}

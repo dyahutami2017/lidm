@@ -1,0 +1,54 @@
+@layout('admin.template')
+
+@section('sidebar')
+    @include('dashboard.sidebar')
+@endsection
+
+@section('content')
+
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-inline text-center">
+                <a id="prevChapter" class="btn btn-primary mb-2"><i class="fa fa-chevron-left"></i></a>
+                <div class="form-group mx-sm-3 mb-2">
+                    <select name="content" class="form-control" id="content">
+                       @each(item in kontenMateri)
+                         <option value="{{ item.id }}" {{ konten.id == item.id ? "selected": "" }}>{{ item.judul }}</option>
+                       @endeach
+                    </select>
+                </div>
+                <a id="nextChapter" class="btn btn-primary mb-2"><i class="fa fa-chevron-right"></i></a>
+            </form>
+        </div>
+    </div>
+
+  {{{ konten.konten }}}
+@endsection
+
+@section('js')
+    @super
+  {{{ konten.js }}}
+  <script>
+      $("#content").change(function(x){
+        changeChapter(parseInt($(this).val()))
+      })
+
+      $("#nextChapter").click(function(x){
+        changeChapter(parseInt($("#content").val()) + 1)
+      })
+
+      $("#prevChapter").click(function(x){
+        changeChapter(parseInt($("#content").val()) - 1)
+      })
+
+      function changeChapter(chapId){
+        const url = "{{ route('kelas.materi.belajar', {kelas: kelas.id, materi: materi.id, konten: "chapid"}) }}"
+        document.location.href = url.replace('chapid', chapId)
+      }
+  </script>
+@endsection
+
+@section('css')
+    @super
+  {{{ konten.css }}}
+@endsection
